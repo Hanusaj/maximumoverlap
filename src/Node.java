@@ -7,13 +7,48 @@
  */
 public class Node {
 	
+	Node parent, left, right;
+	Endpoint endpoint;
+	int color;
+
+	public Node() {
+		parent = null;
+		left = null;
+		right = null;
+		endpoint = null;
+		color = 1;
+	}
+
+	public Node(Endpoint ep) {
+		parent = null;
+		left = null;
+		right = null;
+		endpoint = ep;
+		color = 1;
+	}
+
+	public Node(Node l, Node r, Endpoint ep) {
+		parent = null;
+		left = l;
+		right = r;
+		endpoint = ep;
+		color = 1;
+	}
+	
+	public Node(Node l, Node r, Endpoint ep, int c) {
+		parent = null;
+		left = l;
+		right = r;
+		endpoint = ep;
+		color = c;
+	}
+
 	/**
 	 * Returns the parent of this node.
 	 * @return
 	 */
 	public Node getParent() {
-		//TODO: Modify it accordingly.
-		return null;
+		return parent;
 	}
 	
 	/**
@@ -21,8 +56,7 @@ public class Node {
 	 * @return
 	 */
 	public Node getLeft() {
-		//TODO: Modify it accordingly.
-		return null;
+		return left;
 	}
 	
 	/**
@@ -30,8 +64,7 @@ public class Node {
 	 * @return
 	 */
 	public Node getRight() {
-		//TODO: Modify it accordingly.
-		return null;
+		return right;
 	}
 	
 	/**
@@ -39,8 +72,7 @@ public class Node {
 	 * @return
 	 */
 	public int getKey() {
-		//TODO: Modify it accordingly.
-		return 0;
+		return endpoint.getValue();
 	}
 	
 	/**
@@ -75,8 +107,7 @@ public class Node {
 	 * @return
 	 */
 	public Endpoint getEndpoint() {
-		//TODO: Modify it accordingly.
-		return null;
+		return endpoint;
 	}
 	
 	/**
@@ -96,7 +127,7 @@ public class Node {
 	 */
 	public int getColor() {
 		//TODO: Modify it accordingly.
-		return 0;
+		return color;
 	}
 	
 	//Add more functions as  you see fit.

@@ -1,3 +1,6 @@
+import java.util.LinkedList;
+import java.util.Queue;
+
 /**
  * Team members:
  * @author John Doe
@@ -6,12 +9,17 @@
  * RBTree class, maintains operations on RBTree.
  */
 public class RBTree {
+
+	Node root, nilNode;
 	
 	/**
 	 * RB Tree constructor. It initializes nil node as well.
 	 */
 	public RBTree() {
-		//TODO: Add code as needed.
+		nilNode = new Node();
+		nilNode.left = nilNode;
+		nilNode.right = nilNode;
+		root = nilNode;
 	}
 	
 	/**
@@ -19,8 +27,7 @@ public class RBTree {
 	 * @return
 	 */
 	public Node getRoot() {
-		//TODO: Modify it accordingly.
-		return null;
+		return root;
 	}
 	
 	/**
@@ -28,8 +35,7 @@ public class RBTree {
 	 * @return
 	 */
 	public Node getNILNode() {
-		//TODO: Modify it accordingly.
-		return null;
+		return nilNode;
 	}
 	
 	/**
@@ -51,5 +57,280 @@ public class RBTree {
 		return 0;
 	}
 	
-	//Add more functions as  you see fit.
+	public void insert(Node z) {
+		Node x = root;
+		Node y = nilNode;
+		while (x != nilNode) {
+			y = x;
+			if (z.getKey() < x.getKey()) {
+				x = x.left;
+			} else {
+				x = x.right;
+			}
+		}
+		z.parent = y;
+		if (y == nilNode) {
+			root = z;
+		} else if (z.getKey() < y.getKey()) {
+			y.left = z;
+		} else {
+			y.right = z;
+		}
+		z.left = nilNode;
+		z.right = nilNode;
+		z.color = 0;
+		insertFixup(z);
+	}
+
+	private void insertFixup(Node z) {
+		while (z.parent.color == 0) {
+			if (z.parent == z.parent.parent.left) {
+				Node y = z.parent.parent.right;
+				if (y.color == 0) {
+					z.parent.color = 1;
+					y.color = 1;
+					z.parent.parent.color = 0;
+					z = z.parent.parent;
+				} else {
+					if (z == z.parent.right) {
+						z = z.parent;
+						leftRotate(z);
+					}
+					z.parent.color = 1;
+					z.parent.parent.color = 0;
+					rightRotate(z.parent.parent);
+				}
+			} else if (z.parent == z.parent.parent.right){
+				Node y = z.parent.parent.left;
+				if (y.color == 0) {
+					z.parent.color = 1;
+					y.color = 1;
+					z.parent.parent.color = 0;
+					z = z.parent.parent;
+				} else {
+					if (z == z.parent.left) {
+						z = z.parent;
+						rightRotate(z);
+					}
+					z.parent.color = 1;
+					z.parent.parent.color = 0;
+					leftRotate(z.parent.parent);
+				}
+			}
+		}
+		root.color = 1;
+	}
+
+	private void leftRotate(Node x) {
+		Node y = x.right;
+		x.right = y.left;
+		if (y.left != nilNode) {
+			y.left.parent = x;
+		}
+		y.parent = x.parent;
+		if (x.parent == nilNode) {
+			root = y;
+		} else if (x == x.parent.left) {
+			x.parent.left = y;
+		} else {
+			x.parent.right = y;
+		}
+		y.left = x;
+		x.parent = y;
+	}
+
+	private void rightRotate(Node x) {
+		Node y = x.left;
+		x.left = y.right;
+		if (y.right != nilNode) {
+			y.right.parent = x;
+		}
+		y.parent = x.parent;
+		if (x.parent == nilNode) {
+			root = y;
+		} else if (x == x.parent.right) {
+			x.parent.right = y;
+		} else {
+			x.parent.left = y;
+		}
+		y.right = x;
+		x.parent = y;
+	}
+
+	public void delete(Node z) {
+		Node y = z, x;
+		int yOrigColor = y.color;
+
+		if (z.left == nilNode) {
+			x = z.right;
+			transplant(z, z.right);
+		} else if (z.right == nilNode) {
+			x = z.left;
+			transplant(z, z.left);
+		} else {
+			y = minimum(z.right);
+			yOrigColor = y.color;
+			x = y.right;
+			if (y.parent == z) {
+				x.parent = y;
+			} else {
+				transplant(y, y.right);
+				y.right = z.right;
+				y.right.parent = y;
+			}
+			transplant(z, y);
+			y.left = z.right;
+			y.left.parent = y;
+			y.color = z.color;
+		}
+		if (yOrigColor == 1) {
+			deleteFixup(x);
+		}
+	}
+
+	private void deleteFixup(Node x) {
+		Node w;
+		while (x != root && x.color == 1) {
+			if (x == x.parent.left) {
+				w = x.parent.right;
+				if (w.color == 0) {
+					w.color = 1;
+					x.parent.color = 0;
+					leftRotate(x.parent);
+					w = x.parent.right;
+				}
+				if (w.left.color == 1 && w.right.color == 1) {
+					w.color = 0;
+					x = x.parent;
+				}
+				if (w.right.color == 1) {
+					w.left.color = 1;
+					w.color = 0;
+					rightRotate(w);
+					w = x.parent.right;
+				}
+				w.color = x.parent.color;
+				x.parent.color = 1;
+				w.right.color = 1;
+				leftRotate(x.parent);
+				x = root;
+			} else {
+				w = x.parent.left;
+				if (w.color == 0) {
+					w.color = 1;
+					x.parent.color = 0;
+					rightRotate(x.parent);
+					w = x.parent.left;
+				}
+				if (w.right.color == 1 && w.left.color == 1) {
+					w.color = 0;
+					x = x.parent;
+				}
+				if (w.left.color == 1) {
+					w.right.color = 1;
+					w.color = 0;
+					leftRotate(w);
+					w = x.parent.left;
+				}
+				w.color = x.parent.color;
+				x.parent.color = 1;
+				w.left.color = 1;
+				rightRotate(x.parent);
+				x = root;
+			}
+		}
+		x.color = 1;
+	}
+
+	private void transplant(Node u, Node v) {
+		if (u.parent == nilNode) {
+			root = v;
+		} else if (u == u.parent.left) {
+			u.parent.left = v;
+		} else {
+			u.parent.right = v;
+		}
+		v.parent = u.parent;
+	}
+
+	public Node minimum(Node r) {
+		Node current = r;
+		while (current.left != nilNode) {
+			current = current.left;
+		}
+		return current;
+	}
+
+	public void inorder() {
+		inorderRec(root);
+	}
+
+	private void inorderRec(Node r) {
+		if (r == nilNode) return;
+		inorderRec(r.left);
+		System.out.println(r.getKey());
+		inorderRec(r.right);
+	}
+
+	public void topView() {
+		topViewRec(root);
+	}
+
+	private void topViewRec(Node r) 
+    { 
+		if (r == nilNode) return;
+        Queue<Node> q = new LinkedList<Node>(); 
+
+        q.add(r); 
+          
+        while(true) 
+        { 
+            int nodeCount = q.size(); 
+			if(nodeCount == 0) break; 
+			
+            while(nodeCount > 0) 
+            { 
+                Node node = q.peek(); 
+                System.out.print(node.getKey() + " "); 
+                q.remove(); 
+                if(node.left != nilNode) 
+                    q.add(node.left); 
+                if(node.right != nilNode) 
+                    q.add(node.right); 
+                nodeCount--; 
+            } 
+            System.out.println(); 
+        } 
+	} 
+	
+	public void topViewColor() {
+		topViewColorRec(root);
+	}
+
+	private void topViewColorRec(Node r) 
+    { 
+		if (r == nilNode) return;
+        Queue<Node> q = new LinkedList<Node>(); 
+
+        q.add(r); 
+          
+        while(true) 
+        { 
+            int nodeCount = q.size(); 
+			if(nodeCount == 0) break; 
+			
+            while(nodeCount > 0) 
+            { 
+                Node node = q.peek(); 
+                System.out.print((node.getColor() == 1 ? "black" : "red") + " "); 
+                q.remove(); 
+                if(node.left != nilNode) 
+                    q.add(node.left); 
+                if(node.right != nilNode) 
+                    q.add(node.right); 
+                nodeCount--; 
+            } 
+            System.out.println(); 
+        } 
+    } 
 }

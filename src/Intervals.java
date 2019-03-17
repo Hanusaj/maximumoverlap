@@ -10,12 +10,14 @@ import java.util.Arrays;
 public class Intervals {
 	//private int ID = 0; If deletion is done, this could be used to keep track of edpoints
 	//                    for the same interval.
+
+	RBTree tree;
 	
 	/**
 	 * Constructor with no parameters.
 	 */
 	public Intervals() {
-		//TODO: Complete it as needed
+		tree = new RBTree();
 	}
 	
 	/**
@@ -32,7 +34,9 @@ public class Intervals {
 	 * @param b
 	 */
 	void intervalInsert(int a, int b) {
-		//TODO: Complete it as needed
+		// System.out.println("Inserting: " + a + " " + b);
+		tree.insert(new Node(new Endpoint(a)));
+		tree.insert(new Node(new Endpoint(b)));
 	}
 	
 	/**
@@ -66,8 +70,7 @@ public class Intervals {
 	 * @return
 	 */
 	RBTree getRBTree() {
-		//TODO: Modify it accordingly.
-		return null;
+		return tree;
 	}
 	
 	
@@ -83,10 +86,22 @@ public class Intervals {
 		int points[][] = {{0, 4}, {1, 6}, {3, 9}, {7, 11}};
 		Intervals intv = new Intervals();
 		
-		for(int i=0; i<points.length; i++) {
-			//System.out.println("Inserting: "+ Arrays.toString(points[i]));
+		for(int i = 0; i < points.length; i++) {
+			// System.out.println("Inserting: "+ Arrays.toString(points[i]));
 			intv.intervalInsert(points[i][0], points[i][1]);
 		}
-		System.out.println("POM is: "+ intv.findPOM()); //Should return 3.
+		intv.getRBTree().topViewColor();
+		//System.out.println("POM is: "+ intv.findPOM()); //Should return 3.
+
+		/*
+		RBTree rbt = new RBTree();
+		rbt.insert(new Endpoint(8));
+		rbt.insert(new Endpoint(6));
+		rbt.insert(new Endpoint(12));
+		rbt.insert(new Endpoint(15));
+		rbt.insert(new Endpoint(13));
+		rbt.topView();
+		rbt.topViewColor();
+		*/
 	}
 }

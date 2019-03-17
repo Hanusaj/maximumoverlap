@@ -7,6 +7,12 @@
  */
 public class Endpoint {
 	
+	int value;
+
+	public Endpoint(int v) {
+		value = v;
+	}
+
 	/**
 	 * returns the endpoint value.  For example if the
 	 * End point object represents the left end point of the 
@@ -14,7 +20,6 @@ public class Endpoint {
 	 * @return
 	 */
 	public int getValue() {
-		//TODO: Modify it accordingly.
-		return 1;
+		return value;
 	}
 }
