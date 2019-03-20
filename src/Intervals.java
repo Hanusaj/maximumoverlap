@@ -38,8 +38,8 @@ public class Intervals {
 		int p_a, p_b;
 
 		if(a <= b){
-			p_a = -1;
-			p_b = 1;
+			p_a = 1;
+			p_b = -1;
 		}
 		else{
 			p_a = 1;
@@ -132,6 +132,10 @@ public class Intervals {
 		System.out.println("root.right: " + intv.tree.root.right.getKey());
 		System.out.println("root.right.left: " + intv.tree.root.right.left.getKey());
 		System.out.println("root.right.right.right: " + intv.tree.root.right.right.right.getKey());
+		
+		intv.tree.updateNodeVals();
+		intv.tree.inorderVal();
 		*/
+		
 	}
 }

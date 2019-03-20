@@ -279,6 +279,20 @@ public class RBTree {
 		System.out.println(r.getKey());
 		inorderRec(r.right);
 	}
+	
+	/**
+	 * For testing, this prints the val for each node in order. 
+	 */
+	public void inorderVal() {
+		inorderValRec(root);
+	}
+
+	private void inorderValRec(Node r) {
+		if (r == nilNode) return;
+		inorderValRec(r.left);
+		System.out.println(r.getVal());
+		inorderValRec(r.right);
+	}
 
 	public void topView() {
 		topViewRec(root);

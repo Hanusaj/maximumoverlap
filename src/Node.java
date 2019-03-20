@@ -99,8 +99,7 @@ public class Node {
 	 * @return
 	 */
 	public int getP() {
-		//TODO: Modify it accordingly.
-		return 0;
+		return p;
 	}
 	
 	/**
@@ -108,8 +107,7 @@ public class Node {
 	 * @return
 	 */
 	public int getVal() {
-		//TODO: Modify it accordingly.
-		return 0;
+		return val;
 	}
 	
 	/**
@@ -117,8 +115,7 @@ public class Node {
 	 * @return
 	 */
 	public int getMaxVal() {
-		//TODO: Modify it accordingly.
-		return 0;
+		return maxval;
 	}
 	
 	/**
@@ -136,8 +133,7 @@ public class Node {
 	 * @return
 	 */
 	public Endpoint getEmax() {
-		//TODO: Modify it accordingly.
-		return null;
+		return emax;
 	}
 	
 	/**
@@ -145,7 +141,6 @@ public class Node {
 	 * @return
 	 */
 	public int getColor() {
-		//TODO: Modify it accordingly.
 		return color;
 	}
 
