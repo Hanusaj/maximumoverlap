@@ -8,14 +8,18 @@
 public class Node {
 	
 	Node parent, left, right;
-	Endpoint endpoint;
+	Endpoint key;
 	int color;
+	int p;
+	int val;
+	int maxval;
+	Endpoint emax;
 
 	public Node() {
 		parent = null;
 		left = null;
 		right = null;
-		endpoint = null;
+		key = null;
 		color = 1;
 	}
 
@@ -23,15 +27,30 @@ public class Node {
 		parent = null;
 		left = null;
 		right = null;
-		endpoint = ep;
+		key = ep;
 		color = 1;
+	}
+	/**
+	 * the field p tells us if the Endpoint is a left or right Endpoint.
+	 * p is 1 if ep is a left endpoint.
+	 * p is -1 if ep is a right endpoint. 
+	 * @param ep
+	 * @param pval
+	 */
+	public Node(Endpoint ep, int p) {
+		parent = null;
+		left = null;
+		right = null;
+		key = ep;
+		color = 1;
+		this.p = p;
 	}
 
 	public Node(Node l, Node r, Endpoint ep) {
 		parent = null;
 		left = l;
 		right = r;
-		endpoint = ep;
+		key = ep;
 		color = 1;
 	}
 	
@@ -39,7 +58,7 @@ public class Node {
 		parent = null;
 		left = l;
 		right = r;
-		endpoint = ep;
+		key = ep;
 		color = c;
 	}
 
@@ -72,7 +91,7 @@ public class Node {
 	 * @return
 	 */
 	public int getKey() {
-		return endpoint.getValue();
+		return key.getValue();
 	}
 	
 	/**
@@ -107,7 +126,7 @@ public class Node {
 	 * @return
 	 */
 	public Endpoint getEndpoint() {
-		return endpoint;
+		return key;
 	}
 	
 	/**
@@ -129,6 +148,11 @@ public class Node {
 		//TODO: Modify it accordingly.
 		return color;
 	}
+
+	public void setP(int p) {
+		this.p = p;
+	}
 	
 	//Add more functions as  you see fit.
+	
 }

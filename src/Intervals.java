@@ -35,8 +35,18 @@ public class Intervals {
 	 */
 	void intervalInsert(int a, int b) {
 		// System.out.println("Inserting: " + a + " " + b);
-		tree.insert(new Node(new Endpoint(a)));
-		tree.insert(new Node(new Endpoint(b)));
+		int p_a, p_b;
+
+		if(a <= b){
+			p_a = -1;
+			p_b = 1;
+		}
+		else{
+			p_a = 1;
+			p_b = -1;
+		}
+		tree.insert(new Node(new Endpoint(a), p_a));
+		tree.insert(new Node(new Endpoint(b), p_b));
 	}
 	
 	/**

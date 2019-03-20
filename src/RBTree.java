@@ -260,6 +260,14 @@ public class RBTree {
 		}
 		return current;
 	}
+	
+	public Node maximum(Node r) {
+		Node current = r;
+		while (current.right != nilNode) {
+			current = current.right;
+		}
+		return current;
+	}
 
 	public void inorder() {
 		inorderRec(root);
