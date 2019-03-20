@@ -340,5 +340,32 @@ public class RBTree {
             } 
             System.out.println(); 
         } 
-    } 
+    }
+	
+
+	/**
+	 * updateNodeVals() calls the in-order recursive method updateNodeValsRec() on root in order to update
+	 * the val field of every node in this tree. 
+	 */
+	public void updateNodeVals(){
+		updateNodeValsRec(root);		
+	}
+	
+	/**
+	 * Called by updateNodeVals() to update the val field of each node in the tree. The val field for each
+	 * node is the sum of the p-values of every node in the subtree rooted at itself. 
+	 * @param r
+	 * @return
+	 */
+	public int updateNodeValsRec(Node r){
+		if (r == nilNode) return 0;
+	
+		r.val += updateNodeValsRec(r.left);
+		r.val += r.p;
+		System.out.println("p-val: " + r.p);
+		r.val += updateNodeValsRec(r.right);
+		
+		return r.val;
+	
+	}
 }

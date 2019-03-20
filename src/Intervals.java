@@ -92,6 +92,9 @@ public class Intervals {
 	 * 
 	 * @param args
 	 */
+	/**
+	 * @param args
+	 */
 	public static void main(String [] args) {
 		int points[][] = {{0, 4}, {1, 6}, {3, 9}, {7, 11}};
 		Intervals intv = new Intervals();
@@ -112,6 +115,23 @@ public class Intervals {
 		rbt.insert(new Endpoint(13));
 		rbt.topView();
 		rbt.topViewColor();
+		*/
+		
+		/*
+		int points[][] = { {1, 4}, {2, 5}, {3, 6}};
+		Intervals intv = new Intervals();
+		for(int i = 0 ; i < points.length ; i++){
+			intv.intervalInsert(points[i][0],  points[i][1]);
+		}
+		
+		System.out.println("Endoints in-order: ");
+		intv.tree.inorder();
+		
+		System.out.println("root: " + intv.tree.root.getKey());
+		System.out.println("root.left: " + intv.tree.root.left.getKey());
+		System.out.println("root.right: " + intv.tree.root.right.getKey());
+		System.out.println("root.right.left: " + intv.tree.root.right.left.getKey());
+		System.out.println("root.right.right.right: " + intv.tree.root.right.right.right.getKey());
 		*/
 	}
 }
