@@ -3,8 +3,9 @@ import java.util.Queue;
 
 /**
  * Team members:
- * @author John Doe
- * @author Jane Doe
+ * @author AJ Hanus
+ * @author Jordan Cowen
+ * @author Brett Peterson
  * 
  * RBTree class, maintains operations on RBTree.
  */
@@ -19,6 +20,7 @@ public class RBTree {
 		nilNode = new Node();
 		nilNode.left = nilNode;
 		nilNode.right = nilNode;
+		nilNode.parent = nilNode;
 		root = nilNode;
 	}
 	
@@ -61,6 +63,7 @@ public class RBTree {
 		Node x = root;
 		Node y = nilNode;
 		while (x != nilNode) {
+			x.val += z.p;
 			y = x;
 			if (z.getKey() < x.getKey()) {
 				x = x.left;

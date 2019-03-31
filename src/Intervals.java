@@ -37,11 +37,10 @@ public class Intervals {
 		// System.out.println("Inserting: " + a + " " + b);
 		int p_a, p_b;
 
-		if(a <= b){
+		if(a <= b) {
 			p_a = 1;
 			p_b = -1;
-		}
-		else{
+		} else {
 			p_a = 1;
 			p_b = -1;
 		}
@@ -103,8 +102,8 @@ public class Intervals {
 			// System.out.println("Inserting: "+ Arrays.toString(points[i]));
 			intv.intervalInsert(points[i][0], points[i][1]);
 		}
-		intv.getRBTree().topViewColor();
-		//System.out.println("POM is: "+ intv.findPOM()); //Should return 3.
+		intv.getRBTree().topView();
+		// System.out.println("POM is: " + intv.findPOM()); //Should return 3.
 
 		/*
 		RBTree rbt = new RBTree();

@@ -1,7 +1,8 @@
 /**
  * Team members:
- * @author John Doe
- * @author Jane Doe
+ * @author AJ Hanus
+ * @author Jordan Cowen
+ * @author Brett Peterson
  * 
  * Node class for RBTree.
  */
@@ -44,8 +45,10 @@ public class Node {
 		key = ep;
 		color = 1;
 		this.p = p;
+		val = p;
 	}
 
+	/*
 	public Node(Node l, Node r, Endpoint ep) {
 		parent = null;
 		left = l;
@@ -61,6 +64,7 @@ public class Node {
 		key = ep;
 		color = c;
 	}
+	*/
 
 	/**
 	 * Returns the parent of this node.

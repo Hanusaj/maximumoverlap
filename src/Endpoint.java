@@ -1,7 +1,8 @@
 /**
  * Team members:
- * @author John Doe
- * @author Jane Doe
+ * @author AJ Hanus
+ * @author Jordan Cowen
+ * @author Brett Peterson
  * 
  * Endpoint class for Node.
  */
