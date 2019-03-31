@@ -21,16 +21,12 @@ public class Node {
 		left = null;
 		right = null;
 		key = null;
+		p = 0;
+		val = 0;
+		maxval = 0;
 		color = 1;
 	}
 
-	public Node(Endpoint ep) {
-		parent = null;
-		left = null;
-		right = null;
-		key = ep;
-		color = 1;
-	}
 	/**
 	 * the field p tells us if the Endpoint is a left or right Endpoint.
 	 * p is 1 if ep is a left endpoint.
@@ -42,29 +38,13 @@ public class Node {
 		parent = null;
 		left = null;
 		right = null;
+		emax = null;
 		key = ep;
 		color = 1;
 		this.p = p;
 		val = p;
+		maxval = p;
 	}
-
-	/*
-	public Node(Node l, Node r, Endpoint ep) {
-		parent = null;
-		left = l;
-		right = r;
-		key = ep;
-		color = 1;
-	}
-	
-	public Node(Node l, Node r, Endpoint ep, int c) {
-		parent = null;
-		left = l;
-		right = r;
-		key = ep;
-		color = c;
-	}
-	*/
 
 	/**
 	 * Returns the parent of this node.
@@ -151,7 +131,5 @@ public class Node {
 	public void setP(int p) {
 		this.p = p;
 	}
-	
-	//Add more functions as  you see fit.
 	
 }

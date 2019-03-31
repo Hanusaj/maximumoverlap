@@ -12,6 +12,7 @@ import java.util.Queue;
 public class RBTree {
 
 	Node root, nilNode;
+	int size;
 	
 	/**
 	 * RB Tree constructor. It initializes nil node as well.
@@ -22,6 +23,7 @@ public class RBTree {
 		nilNode.right = nilNode;
 		nilNode.parent = nilNode;
 		root = nilNode;
+		size = 0;
 	}
 	
 	/**
@@ -45,8 +47,7 @@ public class RBTree {
 	 * @return
 	 */
 	public int getSize() {
-		//TODO: Modify it accordingly.
-		return 0;
+		return size;
 	}
 	
 	
@@ -55,7 +56,6 @@ public class RBTree {
 	 * @return
 	 */
 	public int getHeight() {
-		//TODO: Modify it accordingly.
 		return 0;
 	}
 	
@@ -82,6 +82,9 @@ public class RBTree {
 		z.left = nilNode;
 		z.right = nilNode;
 		z.color = 0;
+		z.emax = z.p == 1 ? z.getEndpoint() : nilNode.getEndpoint();
+		size++;
+		setMaxValRec(z);
 		insertFixup(z);
 	}
 
@@ -140,6 +143,10 @@ public class RBTree {
 		}
 		y.left = x;
 		x.parent = y;
+		y.val = x.val;
+		x.val -= y.p + y.right.val;
+		setMaxVal(x);
+		setMaxVal(y);
 	}
 
 	private void rightRotate(Node x) {
@@ -158,6 +165,30 @@ public class RBTree {
 		}
 		y.right = x;
 		x.parent = y;
+		y.val = x.val;
+		x.val -= y.p + y.left.val;
+		setMaxVal(x);
+		setMaxVal(y);
+	}
+
+	private void setMaxValRec(Node x) {
+		setMaxVal(x);
+		if (x.parent != nilNode) {
+			setMaxValRec(x.parent);
+		}
+	}
+
+	private void setMaxVal(Node x) {
+		if (x.left.maxval > x.left.val + x.p && x.left.maxval > x.left.val + x.p + x.right.maxval) {
+			x.maxval = x.left.maxval;
+			x.emax = x.left.emax;
+		} else if (x.left.val + x.p > x.left.maxval && x.left.val + x.p > x.left.val + x.p + x.right.maxval) {
+			x.maxval = x.left.val + x.p;
+			x.emax = x.getEndpoint();
+		} else {
+			x.maxval = x.left.val + x.p + x.right.maxval;
+			x.emax = x.right.emax;
+		}
 	}
 
 	public void delete(Node z) {
@@ -348,6 +379,37 @@ public class RBTree {
             { 
                 Node node = q.peek(); 
                 System.out.print((node.getColor() == 1 ? "black" : "red") + " "); 
+                q.remove(); 
+                if(node.left != nilNode) 
+                    q.add(node.left); 
+                if(node.right != nilNode) 
+                    q.add(node.right); 
+                nodeCount--; 
+            } 
+            System.out.println(); 
+        } 
+	}
+	
+	public void topViewVal() {
+		topViewValRec(root);
+	}
+
+	private void topViewValRec(Node r) 
+    { 
+		if (r == nilNode) return;
+        Queue<Node> q = new LinkedList<Node>(); 
+
+        q.add(r); 
+          
+        while(true) 
+        { 
+            int nodeCount = q.size(); 
+			if(nodeCount == 0) break; 
+			
+            while(nodeCount > 0) 
+            { 
+                Node node = q.peek(); 
+                System.out.print(node.getMaxVal() + " "); 
                 q.remove(); 
                 if(node.left != nilNode) 
                     q.add(node.left); 

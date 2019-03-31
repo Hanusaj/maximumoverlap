@@ -1,9 +1,8 @@
-import java.util.Arrays;
-
 /**
  * Team members:
- * @author John Doe
- * @author Jane Doe
+ * @author AJ Hanus
+ * @author Jordan Cowen
+ * @author Brett Peterson
  * 
  * A wrapper class for RBTree
  */
@@ -70,8 +69,7 @@ public class Intervals {
 	 * @return
 	 */
 	int findPOM() {
-		//TODO: Modify it accordingly.
-		return 0;
+		return tree.getRoot().getEmax().getValue();
 	}
 	
 	/**
@@ -102,39 +100,8 @@ public class Intervals {
 			// System.out.println("Inserting: "+ Arrays.toString(points[i]));
 			intv.intervalInsert(points[i][0], points[i][1]);
 		}
-		intv.getRBTree().topView();
-		// System.out.println("POM is: " + intv.findPOM()); //Should return 3.
-
-		/*
-		RBTree rbt = new RBTree();
-		rbt.insert(new Endpoint(8));
-		rbt.insert(new Endpoint(6));
-		rbt.insert(new Endpoint(12));
-		rbt.insert(new Endpoint(15));
-		rbt.insert(new Endpoint(13));
-		rbt.topView();
-		rbt.topViewColor();
-		*/
-		
-		/*
-		int points[][] = { {1, 4}, {2, 5}, {3, 6}};
-		Intervals intv = new Intervals();
-		for(int i = 0 ; i < points.length ; i++){
-			intv.intervalInsert(points[i][0],  points[i][1]);
-		}
-		
-		System.out.println("Endoints in-order: ");
-		intv.tree.inorder();
-		
-		System.out.println("root: " + intv.tree.root.getKey());
-		System.out.println("root.left: " + intv.tree.root.left.getKey());
-		System.out.println("root.right: " + intv.tree.root.right.getKey());
-		System.out.println("root.right.left: " + intv.tree.root.right.left.getKey());
-		System.out.println("root.right.right.right: " + intv.tree.root.right.right.right.getKey());
-		
-		intv.tree.updateNodeVals();
-		intv.tree.inorderVal();
-		*/
+		intv.getRBTree().topViewVal();
+		System.out.println("POM is: " + intv.findPOM()); //Should return 3.
 		
 	}
 }
