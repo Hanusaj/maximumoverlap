@@ -56,7 +56,13 @@ public class RBTree {
 	 * @return
 	 */
 	public int getHeight() {
-		return 0;
+		return getHeightRec(root);
+	}
+	
+	public int getHeightRec(Node v) {
+		if(v == nilNode)
+			return 0;
+		return 1 + Math.max(getHeightRec(v.left), getHeightRec(v.right));
 	}
 	
 	public void insert(Node z) {
@@ -179,12 +185,12 @@ public class RBTree {
 	}
 
 	private void setMaxVal(Node x) {
-		if (x.left.maxval > x.left.val + x.p && x.left.maxval > x.left.val + x.p + x.right.maxval) {
-			x.maxval = x.left.maxval;
-			x.emax = x.left.emax;
-		} else if (x.left.val + x.p > x.left.maxval && x.left.val + x.p > x.left.val + x.p + x.right.maxval) {
+		if (x.left.val + x.p >= x.left.maxval && x.left.val + x.p >= x.left.val + x.p + x.right.maxval) {
 			x.maxval = x.left.val + x.p;
 			x.emax = x.getEndpoint();
+		} else if (x.left.maxval >= x.left.val + x.p && x.left.maxval >= x.left.val + x.p + x.right.maxval) {
+			x.maxval = x.left.maxval;
+			x.emax = x.left.emax;
 		} else {
 			x.maxval = x.left.val + x.p + x.right.maxval;
 			x.emax = x.right.emax;
@@ -213,7 +219,7 @@ public class RBTree {
 				y.right.parent = y;
 			}
 			transplant(z, y);
-			y.left = z.right;
+			y.left = z.left;
 			y.left.parent = y;
 			y.color = z.color;
 		}
@@ -285,6 +291,13 @@ public class RBTree {
 			u.parent.right = v;
 		}
 		v.parent = u.parent;
+		
+		Node x = u;
+		while (x.parent != nilNode) {
+			x = x.parent;
+			x.val -= v.p;
+		}
+		setMaxValRec(v);
 	}
 
 	public Node minimum(Node r) {
@@ -409,7 +422,7 @@ public class RBTree {
             while(nodeCount > 0) 
             { 
                 Node node = q.peek(); 
-                System.out.print(node.getMaxVal() + " "); 
+                System.out.print(node.getVal() + " "); 
                 q.remove(); 
                 if(node.left != nilNode) 
                     q.add(node.left); 

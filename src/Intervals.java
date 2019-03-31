@@ -1,3 +1,5 @@
+import java.util.ArrayList;
+
 /**
  * Team members:
  * @author AJ Hanus
@@ -7,16 +9,29 @@
  * A wrapper class for RBTree
  */
 public class Intervals {
-	//private int ID = 0; If deletion is done, this could be used to keep track of edpoints
-	//                    for the same interval.
+	private int ID = 1;
+	ArrayList<Interval> intervals;
 
 	RBTree tree;
 	
+	class Interval {
+		Node left;
+		Node right;
+		int id;
+
+		public Interval(Node a, Node b, int id) {
+			left = a;
+			right = b;
+			this.id = id;
+		}
+	}
+
 	/**
 	 * Constructor with no parameters.
 	 */
 	public Intervals() {
 		tree = new RBTree();
+		intervals = new ArrayList<Interval>();
 	}
 	
 	/**
@@ -33,18 +48,13 @@ public class Intervals {
 	 * @param b
 	 */
 	void intervalInsert(int a, int b) {
-		// System.out.println("Inserting: " + a + " " + b);
-		int p_a, p_b;
+		Node left = new Node(new Endpoint(a), 1);
+		Node right = new Node(new Endpoint(b), -1);
+		intervals.add(new Intervals.Interval(left, right, ID));
+		ID++;
 
-		if(a <= b) {
-			p_a = 1;
-			p_b = -1;
-		} else {
-			p_a = 1;
-			p_b = -1;
-		}
-		tree.insert(new Node(new Endpoint(a), p_a));
-		tree.insert(new Node(new Endpoint(b), p_b));
+		tree.insert(left);
+		tree.insert(right);
 	}
 	
 	/**
@@ -60,8 +70,13 @@ public class Intervals {
 	 * @return
 	 */
 	boolean intervalDelete(int intervalID) {
-		//TODO: Complete it as needed (This is optional so you can leave it as it is)
-		return false;
+		for(int i = 0; i < intervals.size(); i++) {
+			if (intervals.get(i).id == intervalID) {
+				tree.delete(intervals.get(i).left);
+				tree.delete(intervals.get(i).right);
+			}
+		}
+		return true;
 	}
 	
 	/**
@@ -100,8 +115,10 @@ public class Intervals {
 			// System.out.println("Inserting: "+ Arrays.toString(points[i]));
 			intv.intervalInsert(points[i][0], points[i][1]);
 		}
-		intv.getRBTree().topViewVal();
 		System.out.println("POM is: " + intv.findPOM()); //Should return 3.
 		
+		intv.intervalDelete(4);
+		intv.getRBTree().topView();
+		intv.getRBTree().topViewVal();
 	}
 }
