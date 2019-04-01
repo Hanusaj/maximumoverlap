@@ -74,6 +74,7 @@ public class Intervals {
 			if (intervals.get(i).id == intervalID) {
 				tree.delete(intervals.get(i).left);
 				tree.delete(intervals.get(i).right);
+				intervals.remove(i);
 				return true;
 			}
 		}
