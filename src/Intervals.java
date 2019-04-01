@@ -74,9 +74,10 @@ public class Intervals {
 			if (intervals.get(i).id == intervalID) {
 				tree.delete(intervals.get(i).left);
 				tree.delete(intervals.get(i).right);
+				return true;
 			}
 		}
-		return true;
+		return false;
 	}
 	
 	/**
@@ -117,7 +118,7 @@ public class Intervals {
 		}
 		System.out.println("POM is: " + intv.findPOM()); //Should return 3.
 		
-		intv.intervalDelete(4);
+		intv.intervalDelete(3);
 		intv.getRBTree().topView();
 		intv.getRBTree().topViewVal();
 	}

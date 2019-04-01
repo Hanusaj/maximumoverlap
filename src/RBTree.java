@@ -226,6 +226,7 @@ public class RBTree {
 		if (yOrigColor == 1) {
 			deleteFixup(x);
 		}
+		size--;
 	}
 
 	private void deleteFixup(Node x) {
@@ -238,22 +239,21 @@ public class RBTree {
 					x.parent.color = 0;
 					leftRotate(x.parent);
 					w = x.parent.right;
-				}
-				if (w.left.color == 1 && w.right.color == 1) {
+				} else if (w.left.color == 1 && w.right.color == 1) {
 					w.color = 0;
 					x = x.parent;
-				}
-				if (w.right.color == 1) {
+				} else if (w.right.color == 1) {
 					w.left.color = 1;
 					w.color = 0;
 					rightRotate(w);
 					w = x.parent.right;
+				} else {
+					w.color = x.parent.color;
+					x.parent.color = 1;
+					w.right.color = 1;
+					leftRotate(x.parent);
+					x = root;
 				}
-				w.color = x.parent.color;
-				x.parent.color = 1;
-				w.right.color = 1;
-				leftRotate(x.parent);
-				x = root;
 			} else {
 				w = x.parent.left;
 				if (w.color == 0) {
@@ -261,22 +261,21 @@ public class RBTree {
 					x.parent.color = 0;
 					rightRotate(x.parent);
 					w = x.parent.left;
-				}
-				if (w.right.color == 1 && w.left.color == 1) {
+				} else if (w.right.color == 1 && w.left.color == 1) {
 					w.color = 0;
 					x = x.parent;
-				}
-				if (w.left.color == 1) {
+				} else if (w.left.color == 1) {
 					w.right.color = 1;
 					w.color = 0;
 					leftRotate(w);
 					w = x.parent.left;
+				} else {
+					w.color = x.parent.color;
+					x.parent.color = 1;
+					w.left.color = 1;
+					rightRotate(x.parent);
+					x = root;
 				}
-				w.color = x.parent.color;
-				x.parent.color = 1;
-				w.left.color = 1;
-				rightRotate(x.parent);
-				x = root;
 			}
 		}
 		x.color = 1;
